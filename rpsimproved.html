@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissor</title>
+
+    <style>
+        .container p {
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            margin: 0;
+            padding: 0;
+            width: 70vw;
+            height: 55vh;
+        }
+
+        .container button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body {
+            background-image: url('https://www.fireboltracing.com/main_page/images/Particles-5126d5ac.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            gap: 10px;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .buttons {
+            gap: 10px;
+            display: flex;
+            /* align-items: center; */
+            justify-content: center;
+        }
+
+        .neeche {
+            gap: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .description {
+            margin-top: 10px;
+            margin-bottom: 0px;
+            padding: 0px;
+            height: 7vh;
+            width: 18vw;
+            color: white;
+            font-size: 35px;
+        }
+
+        .counter {
+            gap: 5px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .counter>* {
+            margin-top: 30px;
+            margin-bottom: 0px;
+            padding: 0px;
+            height: 7vh;
+            width: 30vw;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .main {
+            margin: 0px;
+            padding: 0px;
+            font-size: 100px;
+            height: 35vh;
+            width: 18vw;
+            border: none;
+            color: red;
+            border: 2px solid red;
+            border-radius: 90%;
+            background-color: black;
+        }
+
+        .blink {
+            margin-top: 0px;
+            margin-bottom: 10px;
+            padding: 0;
+            color: red;
+            font-size: 50px;
+        }
+
+        .natija {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: yellow;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+            z-index: 10;
+        }
+
+        .frsekhelo {
+            border: 2px solid red;
+            background-color: rgb(78, 39, 39);
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            padding: 0px;
+            height: 7vh;
+            width: 18vw;
+            color: white;
+            font-size: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90vw;
+                height: auto;
+            }
+
+            .main {
+                font-size: 3rem;
+                width: 24vw;
+                height: 24vw;
+                border-radius: 50%;
+            }
+
+            .buttons {
+                flex-direction: row;
+                gap: 5vw;
+                flex-wrap: wrap;
+            }
+
+            .neeche {
+                flex-direction: row;
+                flex-wrap: wrap;
+                font-size: 1rem;
+            }
+
+            .description {
+                width: 25vw;
+                font-size: 1.2rem;
+            }
+
+            .counter {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .counter>* {
+                width: 25vw;
+                font-size: 1.1rem;
+            }
+
+            .blink {
+                font-size: 2rem;
+            }
+
+            .natija {
+                font-size: 1.5rem;
+                margin-top: 10px;
+            }
+
+            .frsekhelo {
+                width: 60vw;
+                font-size: 1rem;
+                height: auto;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="natija"></div>
+
+    <div class="reset">
+        <button class="frsekhelo" onclick="
+            reset()
+            ">RESET SCORES</button>
+    </div>
+
+    <div class="container">
+        <p class="blink">Let's Go!!</p>
+        <div class="buttons">
+            <button class="main" onclick="
+            random('Rock')
+            ">✊</button>
+            <button class="main" onclick="
+            random('Paper')
+        ">✋</button>
+            <button class="main" onclick="
+            random('Scissor')
+        ">✌️</button>
+        </div>
+
+        <div class="neeche">
+            <p class="description">Rock</p>
+            <p class="description">Paper</p>
+            <p class="description">Scissor</p>
+        </div>
+
+        <div class="counter">
+            <p class="dusradesc1"></p>
+            <p class="dusradesc2"></p>
+            <p class="dusradesc3"></p>
+        </div>
+    </div>
+
+    <script>
+        let computerMove = '';
+        let result = '';
+        let Win = 0, Lose = 0, Tie = 0;
+        function random(playerMove) {
+            const rand = Math.floor(Math.random() * 3) + 1;
+            if (rand === 1) computerMove = 'Rock';
+            else if (rand === 2) computerMove = 'Paper';
+            else computerMove = 'Scissor';
+
+            if (computerMove === playerMove) {
+                result = `Computer chose ${computerMove}, Tie 🤝`;
+                Tie++;
+            }
+            else if (
+                (computerMove === 'Rock' && playerMove === 'Paper') ||
+                (computerMove === 'Scissor' && playerMove === 'Rock') || (computerMove === 'Paper' && playerMove === 'Scissor')
+            ) {
+                result = `Computer chose ${computerMove}, YOU WON! 😎`;
+                Win++;
+            }
+            else {
+                result = `Computer chose ${computerMove}, YOU LOST! 💀`;
+                Lose++;
+            }
+
+            let resultBox = document.querySelector('.natija');
+            resultBox.textContent = result;
+            resultBox.style.display = "block";
+
+            setTimeout(() => {
+                resultBox.style.display = "none";
+            }, 3000);
+
+            document.querySelector('.dusradesc1').textContent = `Win : ${Win}`;
+            document.querySelector('.dusradesc2').textContent = `Lose : ${Lose}`;
+            document.querySelector('.dusradesc3').textContent = `Tie : ${Tie}`;
+        }
+
+        function reset() {
+            Win = 0;
+            Lose = 0;
+            Tie = 0;
+
+            document.querySelector('.dusradesc1').textContent = `Win : ${Win}`;
+            document.querySelector('.dusradesc2').textContent = `Lose : ${Lose}`;
+            document.querySelector('.dusradesc3').textContent = `Tie : ${Tie}`;
+        }
+
+    </script>
+</body>
+
+</html>
